@@ -12,7 +12,7 @@ const EarningCards = ({ title, subtitle }: props) => {
   return (
     <View className="w-[30%]">
       <Card>
-        <Card.Content className="py-3 px-2">
+        <Card.Content className="py-3 px-3">
           <View className="flex flex-row items-center gap-2 mb-1">
             <FontAwesome name="rupee" size={18} color={"#FACC15"} />
 

@@ -12,13 +12,13 @@ const BoostProfileMange = () => {
   return (
     <View className="mt-3">
       <Card>
-        <Card.Content className="py-3 px-2">
-          <View className="flex flex-row justify-between border-b border-gray-300  ">
+        <Card.Content className="py-3 px-3">
+          <View className="flex flex-row justify-between pb-2 border-b border-gray-300  ">
             <View className="flex flex-row gap-2 items-center">
               <View className="bg-primary size-10 flex items-center justify-center rounded-md">
                 <Ionicons name="infinite-outline" color={"white"} size={18} />
               </View>
-              <Text>Chat</Text>
+              <Text>Unlimited Free Call/Chat</Text>
             </View>
             <Switch
               trackColor={{ false: "#767577", true: "#2563eb" }}
@@ -27,7 +27,7 @@ const BoostProfileMange = () => {
               value={isUnlimited}
             />
           </View>
-          <View className="flex flex-row justify-between  ">
+          <View className="flex flex-row justify-between pt-2  ">
             <View className="flex flex-row gap-2 items-center">
               <View className="bg-green-600 size-10 flex items-center justify-center rounded-md">
                 <MaterialIcons name="rocket-launch" color={"white"} size={18} />

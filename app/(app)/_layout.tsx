@@ -35,20 +35,6 @@ export default function Layout() {
       />
 
       <Tabs.Screen
-        name="Performance"
-        options={{
-          title: "Performance",
-          headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <TabIcon
-              name={focused ? "stats-chart" : "stats-chart-outline"}
-              color={focused ? "#FACC15" : "gray"}
-            />
-          ),
-        }}
-      />
-
-      <Tabs.Screen
         name="Earning"
         options={{
           title: "Earning",
@@ -61,7 +47,19 @@ export default function Layout() {
           ),
         }}
       />
-
+      <Tabs.Screen
+        name="Performance"
+        options={{
+          title: "Performance",
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <TabIcon
+              name={focused ? "stats-chart" : "stats-chart-outline"}
+              color={focused ? "#FACC15" : "gray"}
+            />
+          ),
+        }}
+      />
       <Tabs.Screen
         name="More"
         options={{

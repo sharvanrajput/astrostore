@@ -12,8 +12,8 @@ const CallChatManage = () => {
   return (
     <View className="mt-3">
       <Card>
-        <Card.Content className="py-3 px-2">
-          <View className="flex flex-row justify-between border-b border-gray-300">
+        <Card.Content className="py-3 px-3 ">
+          <View className="flex flex-row justify-between pb-2 border-b border-gray-300">
             <View className="flex flex-row gap-2 items-center">
               <View className="bg-blue-600 size-10 flex items-center justify-center rounded-md">
                 <Ionicons name="call" color={"white"} size={18} />
@@ -27,7 +27,7 @@ const CallChatManage = () => {
               value={isCall}
             />
           </View>
-          <View className="flex flex-row justify-between  ">
+          <View className="flex flex-row justify-between pt-2  ">
             <View className="flex flex-row gap-2 items-center">
               <View className="bg-green-600 size-10 flex items-center justify-center rounded-md">
                 <Ionicons name="chatbubbles" color={"white"} size={18} />
