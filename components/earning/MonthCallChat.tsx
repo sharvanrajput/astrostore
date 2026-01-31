@@ -15,9 +15,6 @@ const MonthCallChat = () => {
           <Card.Content className="py-3 px-3 ">
             <View className="flex flex-row justify-between items-end pb-2 border-b border-gray-300">
               <View className="flex flex-row gap-2 items-center">
-                <View className="bg-blue-600 size-10 flex items-center justify-center rounded-md">
-                  <Ionicons name="call" color={"white"} size={18} />
-                </View>
                 <View>
                   <Text className="text-lg font-bold">Call Earning</Text>
                   <Text className="text-sm">This Month</Text>
@@ -30,9 +27,6 @@ const MonthCallChat = () => {
             </View>
             <View className="flex flex-row justify-between pt-2  ">
               <View className="flex flex-row gap-2 items-center">
-                <View className="bg-green-600 size-10 flex items-center justify-center rounded-md">
-                  <Ionicons name="chatbubbles" color={"white"} size={18} />
-                </View>
                 <View>
                   <Text className="text-lg font-bold">Chat Earning</Text>
                   <Text className="text-sm">This Month</Text>
@@ -51,13 +45,6 @@ const MonthCallChat = () => {
           <Card.Content className="py-3 px-3 ">
             <View className="flex flex-row justify-between pt-2  ">
               <View className="flex flex-row gap-2 items-center">
-                <View className="bg-primary size-10 flex items-center justify-center rounded-md">
-                  <Foundation
-                    name="results-demographics"
-                    color={"white"}
-                    size={18}
-                  />
-                </View>
                 <View>
                   <Text className="text-lg font-bold">Tatal Earning</Text>
                   <Text className="text-sm">This Month</Text>

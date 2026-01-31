@@ -3,8 +3,7 @@ import React, { useState } from "react";
 import { Card } from "react-native-paper";
 import { AntDesign } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
-
-const HistoryEarningWidhdrow = () => {
+const HistorPdf = () => {
   return (
     <View className="mt-3">
       <Card>
@@ -12,11 +11,11 @@ const HistoryEarningWidhdrow = () => {
           <TouchableOpacity>
             <View className="flex flex-row justify-between items-end pb-2 border-b border-gray-300">
               <View className="flex flex-row gap-2 items-center">
-                <View className="bg-primary size-10 flex items-center justify-center rounded-md">
-                  <AntDesign name="history" color={"black"} size={18} />
+                <View className="bg-red-500 size-10 flex items-center justify-center rounded-md">
+                  <AntDesign name="file-pdf" color={"white"} size={18} />
                 </View>
                 <View>
-                  <Text className="text-lg font-bold">Earning History</Text>
+                  <Text className="text-lg font-bold">Earning History PDF</Text>
                 </View>
               </View>
               <View className=" w-[60px] rounded-lg flex flex-row gap-3 justify-center items-center ">
@@ -28,11 +27,11 @@ const HistoryEarningWidhdrow = () => {
           <TouchableOpacity>
             <View className="flex flex-row justify-between pt-2  ">
               <View className="flex flex-row gap-2 items-center">
-                <View className="bg-primary size-10 flex items-center justify-center rounded-md">
-                  <AntDesign name="history" color={"black"} size={18} />
+                <View className="bg-red-500 size-10 flex items-center justify-center rounded-md">
+                  <AntDesign name="history" color={"white"} size={18} />
                 </View>
                 <View>
-                  <Text className="text-lg font-bold">Withdraw History</Text>
+                  <Text className="text-lg font-bold">Withdraw History PDF</Text>
                   <Text className="text-sm">This Month</Text>
                 </View>
               </View>
@@ -47,4 +46,4 @@ const HistoryEarningWidhdrow = () => {
   );
 };
 
-export default HistoryEarningWidhdrow;
+export default HistorPdf;
