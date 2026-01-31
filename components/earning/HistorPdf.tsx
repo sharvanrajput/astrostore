@@ -28,7 +28,7 @@ const HistorPdf = () => {
             <View className="flex flex-row justify-between pt-2  ">
               <View className="flex flex-row gap-2 items-center">
                 <View className="bg-red-500 size-10 flex items-center justify-center rounded-md">
-                  <AntDesign name="history" color={"white"} size={18} />
+                  <AntDesign name="file-pdf" color={"white"} size={18} />
                 </View>
                 <View>
                   <Text className="text-lg font-bold">Withdraw History PDF</Text>

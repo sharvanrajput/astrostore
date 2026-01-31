@@ -9,9 +9,12 @@ const Earning = () => {
   return (
     <View className="flex-1 ">
       <ScreenHeader text="Estimated Earning" />
-      <ScrollView className="flex-1 px-2">
+      <ScrollView className="flex-1 px-2 ">
+        <Text className=" mt-5 text-xl text-black font-bold">Earnings</Text>
         <MonthCallChat />
+        <Text className=" mt-5 text-xl text-black font-bold">History</Text>
         <HistoryEarningWidhdrow />
+        <Text className=" mt-5 text-xl text-black font-bold">Pdfs</Text>
         <HistorPdf />
       </ScrollView>
     </View>
