@@ -4,10 +4,10 @@ import { Card } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 
 const CallChatManage = () => {
-  const [isEnabled, setIsEnabled] = useState(false);
+  const [isCall, setIsCall] = useState(false);
   const [isChat, setIsChat] = useState(false);
   const toggleChat = () => setIsChat((prev) => !prev);
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+  const toggleSwitch = () => setIsCall((prev) => !prev);
 
   return (
     <View className="mt-3">
@@ -22,9 +22,9 @@ const CallChatManage = () => {
             </View>
             <Switch
               trackColor={{ false: "#767577", true: "#2563eb" }}
-              thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+              thumbColor={isCall ? "#f5dd4b" : "#f4f3f4"}
               onValueChange={toggleSwitch}
-              value={isEnabled}
+              value={isCall}
             />
           </View>
           <View className="flex flex-row justify-between  ">
@@ -36,7 +36,7 @@ const CallChatManage = () => {
             </View>
             <Switch
               trackColor={{ false: "#767577", true: "#2563eb" }}
-              thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+              thumbColor={isChat ? "#f5dd4b" : "#f4f3f4"}
               onValueChange={toggleChat}
               value={isChat}
             />

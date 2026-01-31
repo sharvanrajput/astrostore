@@ -4,6 +4,8 @@ import ScreenHeader from "@/components/ScreenHeader";
 import UserAvatar from "@/components/home/UserAvatar";
 import EarningCards from "@/components/home/EarningCards";
 import CallChatManage from "@/components/home/CallChatManage";
+import BoostProfileMange from "@/components/home/BoostProfileMange";
+import GoLiveManage from "@/components/home/GoLiveManage";
 
 const Home = () => {
   return (
@@ -16,7 +18,12 @@ const Home = () => {
           <EarningCards title={5} subtitle="Call Earning" />
           <EarningCards title={95} subtitle="Chat Earning" />
         </View>
-        <CallChatManage />
+
+        <View>
+          <CallChatManage />
+          <BoostProfileMange />
+          <GoLiveManage />
+        </View>
       </ScrollView>
     </View>
   );
