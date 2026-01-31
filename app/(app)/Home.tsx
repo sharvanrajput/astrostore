@@ -21,7 +21,9 @@ const Home = () => {
 
         <View>
           <CallChatManage />
+
           <BoostProfileMange />
+
           <GoLiveManage />
         </View>
       </ScrollView>
