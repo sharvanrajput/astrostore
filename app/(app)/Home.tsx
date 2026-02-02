@@ -18,12 +18,9 @@ const Home = () => {
           <EarningCards title={5} subtitle="Call Earning" />
           <EarningCards title={95} subtitle="Chat Earning" />
         </View>
-
         <View>
           <CallChatManage />
-
           <BoostProfileMange />
-
           <GoLiveManage />
         </View>
       </ScrollView>

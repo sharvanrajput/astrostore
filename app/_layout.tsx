@@ -1,6 +1,12 @@
 import { Stack } from "expo-router";
 import "./global.css";
+import { MD3LightTheme, PaperProvider } from "react-native-paper";
 
 export default function RootLayout() {
-  return <Stack screenOptions={{ headerShown: false }}></Stack>;
+  
+  return (
+    <PaperProvider theme={MD3LightTheme}>
+      <Stack screenOptions={{ headerShown: false }}></Stack>;
+    </PaperProvider>
+  );
 }
