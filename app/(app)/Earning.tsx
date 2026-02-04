@@ -14,8 +14,8 @@ const Earning = () => {
         <MonthCallChat />
         <Text className=" mt-5 text-xl text-black font-bold">History</Text>
         <HistoryEarningWidhdrow />
-        <Text className=" mt-5 text-xl text-black font-bold">Pdfs</Text>
-        <HistorPdf />
+        {/* <Text className=" mt-5 text-xl text-black font-bold">Pdfs</Text> */}
+        {/* <HistorPdf /> */}
       </ScrollView>
     </View>
   );
