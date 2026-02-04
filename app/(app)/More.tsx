@@ -9,7 +9,6 @@ const More = () => {
   return (
     <View className="flex-1">
       <ScreenHeader text="Support" />
-
       <ScrollView className="flex-1 px-2 mb-2 ">
         <Text className=" mt-5 text-xl text-black font-bold">Settings</Text>
         <Setting />

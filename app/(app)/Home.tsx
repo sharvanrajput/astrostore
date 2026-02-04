@@ -1,13 +1,24 @@
-import { View, Text, ScrollView } from "react-native";
-import React from "react";
 import ScreenHeader from "@/components/ScreenHeader";
-import UserAvatar from "@/components/home/UserAvatar";
-import EarningCards from "@/components/home/EarningCards";
-import CallChatManage from "@/components/home/CallChatManage";
 import BoostProfileMange from "@/components/home/BoostProfileMange";
+import CallChatManage from "@/components/home/CallChatManage";
+import EarningCards from "@/components/home/EarningCards";
 import GoLiveManage from "@/components/home/GoLiveManage";
+import UserAvatar from "@/components/home/UserAvatar";
+import { useRouter } from "expo-router";
+import React, { useEffect } from "react";
+import { ScrollView, View } from "react-native";
 
 const Home = () => {
+  const route = useRouter();
+  useEffect(() => {
+    const id = setTimeout(() => {
+      route.push("/auth/Register");
+    }, 100);
+
+    return () => {
+      clearInterval(id);
+    };
+  }, []);
   return (
     <View className="flex-1 ">
       <ScreenHeader text="Astrologer Panal" />
