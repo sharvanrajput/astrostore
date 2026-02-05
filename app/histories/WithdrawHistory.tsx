@@ -1,4 +1,3 @@
- 
 import HistoryHeader from "@/components/HistoryHeader";
 import React, { useState } from "react";
 import { View } from "react-native";
@@ -186,22 +185,34 @@ export default function WithdrawHistory() {
       <View className="px-2 mt-2">
         <DataTable>
           <DataTable.Header>
-            <DataTable.Title>Name</DataTable.Title>
-            <DataTable.Title>Amount</DataTable.Title>
-            <DataTable.Title>Duration</DataTable.Title>
-            <DataTable.Title>Status</DataTable.Title>
+            <DataTable.Title>
+              <Text>Name</Text>
+            </DataTable.Title>
+            <DataTable.Title>
+              <Text>Amount</Text>
+            </DataTable.Title>
+            <DataTable.Title>
+              <Text>Duration</Text>
+            </DataTable.Title>
+            <DataTable.Title>
+              <Text>Status</Text>
+            </DataTable.Title>
           </DataTable.Header>
 
           {data.slice(from, to).map((item) => (
             <DataTable.Row key={item.id} onPress={() => showDialog(item)}>
               <DataTable.Cell>
-                {item.clientName.split(" ")[0]}...
+                <Text> {item.clientName.split(" ")[0]}...</Text>
               </DataTable.Cell>
 
-              <DataTable.Cell>₹{item.amount}</DataTable.Cell>
+              <DataTable.Cell>
+                <Text>₹{item.amount}</Text>
+              </DataTable.Cell>
 
-              <DataTable.Cell>{item.duration}</DataTable.Cell>
-
+              <DataTable.Cell>
+                <Text>{item.duration}</Text>
+              </DataTable.Cell>
+              
               <DataTable.Cell>
                 <Chip
                   compact

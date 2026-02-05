@@ -109,12 +109,17 @@ export default function Login() {
         {/* Sign Up Link */}
         <View className="flex-row justify-center">
           <Text className="text-gray-600">Don't have an account? </Text>
-          <Link href={"/auth/Login"}>
+          <Link href={"/auth/Register"} asChild>
             <TouchableOpacity>
               <Text className="text-blue-600 font-semibold">Sign Up</Text>
             </TouchableOpacity>
           </Link>
         </View>
+        <Link href={"/(app)/Home"} asChild>
+          <TouchableOpacity>
+            <Text className="text-blue-600 font-semibold">Home</Text>
+          </TouchableOpacity>
+        </Link>
       </ScrollView>
     </KeyboardAvoidingView>
   );

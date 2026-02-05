@@ -1,4 +1,4 @@
-import { Entypo, Feather, MaterialIcons, FontAwesome,Ionicons } from "@expo/vector-icons";
+import { Entypo, Feather, FontAwesome, Ionicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
@@ -42,11 +42,7 @@ const Support = () => {
               <View className="flex-row justify-between items-center pt-3">
                 <View className="flex-row gap-2 items-center">
                   <View className="bg-primary size-10 items-center justify-center rounded-md">
-                    <FontAwesome
-                      name="video-camera"
-                      size={20}
-                      color="black"
-                    />
+                    <FontAwesome name="video-camera" size={20} color="black" />
                   </View>
                   <View>
                     <Text className="text-lg font-bold">Tutorials Videos</Text>
@@ -56,6 +52,22 @@ const Support = () => {
               </View>
             </TouchableOpacity>
           </Link>
+          <View className="flex flex-row justify-between gap-2 mt-3">
+            <Link href={"/auth/Login"} asChild>
+              <TouchableOpacity className="w-[50%] flex flex-row justify-between  items-center bg-primary rounded-lg py-3">
+                <View className=" w-full  ">
+                  <Text className="text-lg font-bold text-center">login</Text>
+                </View>
+              </TouchableOpacity>
+            </Link>
+            <Link href={"/auth/Register"} asChild>
+              <TouchableOpacity className="w-[50%] flex flex-row justify-between  items-center bg-primary rounded-lg py-3">
+                <View className=" w-full ">
+                  <Text className="text-lg font-bold text-center">Signup</Text>
+                </View>
+              </TouchableOpacity>
+            </Link>
+          </View>
         </Card.Content>
       </Card>
     </View>

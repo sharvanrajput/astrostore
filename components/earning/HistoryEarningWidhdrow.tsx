@@ -31,7 +31,6 @@ const HistoryEarningWidhdrow = () => {
                   </View>
                   <View>
                     <Text className="text-lg font-bold">Withdraw History</Text>
-                    <Text className="text-sm text-gray-500">This Month</Text>
                   </View>
                 </View>
                 <Feather name="arrow-right" size={22} color="black" />

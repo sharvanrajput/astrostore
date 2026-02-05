@@ -9,16 +9,7 @@ import React, { useEffect } from "react";
 import { ScrollView, View } from "react-native";
 
 const Home = () => {
-  const route = useRouter();
-  useEffect(() => {
-    const id = setTimeout(() => {
-      route.push("/auth/Register");
-    }, 100);
-
-    return () => {
-      clearInterval(id);
-    };
-  }, []);
+   
   return (
     <View className="flex-1 ">
       <ScreenHeader text="Astrologer Panal" />

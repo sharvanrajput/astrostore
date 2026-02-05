@@ -1,4 +1,4 @@
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import React, { useState, useMemo } from "react";
 import {
   KeyboardAvoidingView,
@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { Button, Checkbox, TextInput } from "react-native-paper";
 import MultiSelectDropdown from "@/components/MultiSelectDropdown";
+import { registerTypes, userAuthStore } from "@/store/authStore";
 
 interface RegistrationPayload {
   fullName: string;
@@ -231,7 +232,7 @@ export default function Register() {
     setErrors({});
   };
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     if (!validateStep(3)) return;
 
     if (!acceptTerms) {
@@ -239,20 +240,20 @@ export default function Register() {
       return;
     }
 
-    const payload: RegistrationPayload = {
+    const payload: registerTypes = {
       fullName: fullName.trim(),
       userName: userName.trim(),
       email: email.trim(),
       password: password,
-      password_confirmation: confirmPassword,
+      // password_confirmation: confirmPassword,
       expertise: selectedExpertise,
       languages: selectedLanguages,
       categories: selectedCategories,
       is_family_astrologer: Number(isFamilyAstrologer),
       family_astrology_details:
         isFamilyAstrologer === "1" ? familyDetails.trim() : null,
-      address: address.trim() || null,
-      pincode: pincode.trim() || null,
+      address: address.trim(),
+      pincode: pincode.trim(),
     };
 
     console.log("Registration Payload:", payload);
@@ -603,9 +604,11 @@ export default function Register() {
               mode="contained"
               onPress={handleRegister}
               style={styles.submitButton}
+              // disabled={loading}
               buttonColor="#16A34A"
               contentStyle={styles.buttonContent}
             >
+              {/* {loading ? "Loading..." : "Submit"} */}
               Submit
             </Button>
           )}
