@@ -1,6 +1,5 @@
 import { View, Text } from "react-native";
 import React from "react";
-import { EvilIcons } from "@expo/vector-icons";
 import BackButton from "./BackButton";
 
 const HistoryHeader = ({ text }: { text: string }) => {

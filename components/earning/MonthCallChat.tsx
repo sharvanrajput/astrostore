@@ -1,13 +1,9 @@
-import { View, Text, Switch } from "react-native";
-import React, { useState } from "react";
+import { View, Text } from "react-native";
+import React from "react";
 import { Card } from "react-native-paper";
-import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
-import { Foundation } from "@expo/vector-icons";
 
 const MonthCallChat = () => {
-  const [isCall, setIsCall] = useState(false);
-  const toggleSwitch = () => setIsCall((prev) => !prev);
   return (
     <>
       <View className="mt-3">

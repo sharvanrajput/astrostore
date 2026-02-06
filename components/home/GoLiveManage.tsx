@@ -1,8 +1,7 @@
 import { View, Text, Switch } from "react-native";
 import React, { useState } from "react";
 import { Card } from "react-native-paper";
-import { Ionicons } from "@expo/vector-icons";
-import { Entypo } from "@expo/vector-icons";
+import { Ionicons, Entypo } from "@expo/vector-icons";
 
 const GoLiveManage = () => {
   const [isLive, setIsLive] = useState(false);

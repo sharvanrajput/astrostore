@@ -1,4 +1,4 @@
-import { Link, useRouter } from "expo-router";
+import { Link } from "expo-router";
 import React, { useState, useMemo } from "react";
 import {
   KeyboardAvoidingView,
@@ -11,22 +11,7 @@ import {
 } from "react-native";
 import { Button, Checkbox, TextInput } from "react-native-paper";
 import MultiSelectDropdown from "@/components/MultiSelectDropdown";
-import { registerTypes, userAuthStore } from "@/store/authStore";
-
-interface RegistrationPayload {
-  fullName: string;
-  userName: string;
-  email: string;
-  password: string;
-  password_confirmation: string;
-  expertise: string[];
-  languages: string[];
-  categories: string[];
-  is_family_astrologer: number;
-  family_astrology_details: string | null;
-  address: string | null;
-  pincode: string | null;
-}
+import { registerTypes } from "@/store/authStore";
 
 interface Option {
   value: string;

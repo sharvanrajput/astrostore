@@ -7,7 +7,7 @@ import {
   ScrollView,
   StyleSheet,
 } from 'react-native';
-import { TextInput, Checkbox } from 'react-native-paper';
+import { Checkbox } from 'react-native-paper';
 import { ChevronDown, X } from 'lucide-react-native';
 
 interface Option {

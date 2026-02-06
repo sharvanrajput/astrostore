@@ -4,7 +4,7 @@ import CallChatManage from "@/components/home/CallChatManage";
 import EarningCards from "@/components/home/EarningCards";
 import GoLiveManage from "@/components/home/GoLiveManage";
 import UserAvatar from "@/components/home/UserAvatar";
-import React from "react";
+ 
 import { ScrollView, View } from "react-native";
 
 const Home = () => {

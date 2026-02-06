@@ -1,4 +1,4 @@
-import { View, Text, Pressable, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { Card } from "react-native-paper";
 import { AntDesign, Feather } from "@expo/vector-icons";

@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from "react-native";
+import { Pressable } from "react-native";
 import { useRouter } from "expo-router";
 import { Feather } from "@expo/vector-icons";
 function BackButton() {
