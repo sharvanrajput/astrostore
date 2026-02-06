@@ -4,12 +4,10 @@ import CallChatManage from "@/components/home/CallChatManage";
 import EarningCards from "@/components/home/EarningCards";
 import GoLiveManage from "@/components/home/GoLiveManage";
 import UserAvatar from "@/components/home/UserAvatar";
-import { useRouter } from "expo-router";
-import React, { useEffect } from "react";
+import React from "react";
 import { ScrollView, View } from "react-native";
 
 const Home = () => {
-   
   return (
     <View className="flex-1 ">
       <ScreenHeader text="Astrologer Panal" />

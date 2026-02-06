@@ -1,9 +1,8 @@
-import { View, Text, ScrollView } from "react-native";
-import React from "react";
 import ScreenHeader from "@/components/ScreenHeader";
-import MonthCallChat from "@/components/earning/MonthCallChat";
 import HistoryEarningWidhdrow from "@/components/earning/HistoryEarningWidhdrow";
-import HistorPdf from "@/components/earning/HistorPdf";
+import MonthCallChat from "@/components/earning/MonthCallChat";
+import React from "react";
+import { ScrollView, Text, View } from "react-native";
 
 const Earning = () => {
   return (

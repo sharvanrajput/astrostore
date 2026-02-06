@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "astrostore",
+    "name": "Astrostore",
     "slug": "astrostore",
+    "scheme": "astrostore",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "astrostore",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -55,6 +55,7 @@
       "eas": {
         "projectId": "4a9122d8-5ffe-4d36-a748-a54d1da3c981"
       }
-    }
+    },
+    "owner": "sharvan098"
   }
 }

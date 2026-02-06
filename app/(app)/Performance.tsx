@@ -1,7 +1,7 @@
-import { View, Text, Image, ScrollView } from "react-native";
-import React from "react";
 import ScreenHeader from "@/components/ScreenHeader";
 import { AntDesign } from "@expo/vector-icons";
+import React from "react";
+import { ScrollView, Text, View } from "react-native";
 const Performance = () => {
   return (
     <View>
@@ -16,7 +16,7 @@ const Performance = () => {
           <Text className="py-2 text-md  ">Rating</Text>
           <View className="flex flex-row items-center gap-1">
             {[...new Array(5)].map((_, i) => (
-              <AntDesign name="star" size={20} color={"#FACC15"} />
+              <AntDesign name="star" key={i} size={20} color={"#FACC15"} />
             ))}
           </View>
         </View>

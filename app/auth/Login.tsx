@@ -2,15 +2,14 @@
 import { Link } from "expo-router";
 import React, { useState } from "react";
 import {
-  View,
-  Text,
-  Image,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Text,
   TouchableOpacity,
+  View
 } from "react-native";
-import { TextInput, Button, Checkbox } from "react-native-paper";
+import { Button, Checkbox, TextInput } from "react-native-paper";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -115,7 +114,7 @@ export default function Login() {
             </TouchableOpacity>
           </Link>
         </View>
-        <Link href={"/(app)/Home"} asChild>
+        <Link href={"/(app)/Index"} asChild>
           <TouchableOpacity>
             <Text className="text-blue-600 font-semibold">Home</Text>
           </TouchableOpacity>
