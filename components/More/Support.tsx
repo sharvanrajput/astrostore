@@ -1,10 +1,28 @@
+import { api } from "@/api/axios";
 import { Entypo, Feather, FontAwesome, Ionicons } from "@expo/vector-icons";
-import { Link } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Link, useRouter } from "expo-router";
 import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Alert, Text, TouchableOpacity, View } from "react-native";
 import { Card } from "react-native-paper";
 
 const Support = () => {
+  const route = useRouter();
+
+  const logout = async () => {
+    try {
+      const res = await api.post("/astro/logout");
+      Alert.alert("Success", res.data.message || "Logout successful!");
+      console.log(res?.data?.token);
+      await AsyncStorage.removeItem("token");
+      route.push("/auth/Login");
+      console.log(res.data.message);
+    } catch (error: any) {
+      Alert.alert("Error", error?.response?.data?.message || "Logout failed");
+      console.error("Logout error:", error);
+    }
+  };
+
   return (
     <View className="mt-3">
       <Card style={{ backgroundColor: "#fff" }}>
@@ -67,6 +85,16 @@ const Support = () => {
                 </View>
               </TouchableOpacity>
             </Link>
+          </View>
+          <View className="flex flex-row justify-between gap-2 mt-3">
+            <TouchableOpacity
+              onPress={logout}
+              className="w-[100%] flex flex-row justify-between  items-center bg-primary rounded-lg py-3"
+            >
+              <View className=" w-full  ">
+                <Text className="text-lg font-bold text-center">logout</Text>
+              </View>
+            </TouchableOpacity>
           </View>
         </Card.Content>
       </Card>

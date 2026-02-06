@@ -1,13 +1,16 @@
 // LoginScreen.jsx
-import { Link } from "expo-router";
+import { api } from "@/api/axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Link, useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
+  Alert,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 import { Button, Checkbox, TextInput } from "react-native-paper";
 
@@ -16,10 +19,26 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const route = useRouter();
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     // Handle login logic here
     console.log("Login:", { email, password, rememberMe });
+
+    try {
+      const res = await api.post("/astro/login", {
+        username: email,
+        password,
+      });
+      Alert.alert("Success", res.data.message || "Login successful!");
+      console.log(res?.data?.token);
+      await AsyncStorage.setItem("token",res?.data?.token);
+      route.push("/(app)/Index");
+      console.log(res.data.message);
+    } catch (error: any) {
+      Alert.alert("Error", error?.response?.data?.message || "Login failed");
+      console.error("Login error:", error);
+    }
   };
 
   return (
@@ -42,7 +61,7 @@ export default function Login() {
         {/* Form Section */}
         <View className="mb-6">
           <TextInput
-            label="Email"
+            label="User Name"
             value={email}
             onChangeText={setEmail}
             mode="outlined"

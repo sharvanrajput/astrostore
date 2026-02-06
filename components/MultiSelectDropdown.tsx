@@ -22,6 +22,7 @@ interface MultiSelectDropdownProps {
   onSelectionChange: (values: string[]) => void;
   placeholder?: string;
   error?: string;
+  maxSelections?: number;
 }
 
 export default function MultiSelectDropdown({
@@ -31,6 +32,7 @@ export default function MultiSelectDropdown({
   onSelectionChange,
   placeholder = 'Select options',
   error,
+  maxSelections = 3,
 }: MultiSelectDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -38,6 +40,10 @@ export default function MultiSelectDropdown({
     if (selectedValues.includes(value)) {
       onSelectionChange(selectedValues.filter((v) => v !== value));
     } else {
+      if (selectedValues.length >= maxSelections) {
+        // Don't add more if max selections reached
+        return;
+      }
       onSelectionChange([...selectedValues, value]);
     }
   };
@@ -52,9 +58,16 @@ export default function MultiSelectDropdown({
     return `${selectedValues.length} selected`;
   };
 
+  const isMaxReached = selectedValues.length >= maxSelections;
+
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>{label}</Text>
+      <View style={styles.labelContainer}>
+        <Text style={styles.label}>{label}</Text>
+        <Text style={styles.maxText}>
+          (Max {maxSelections} - {selectedValues.length} selected)
+        </Text>
+      </View>
 
       <TouchableOpacity
         style={[styles.dropdownButton, error && styles.dropdownError]}
@@ -106,26 +119,47 @@ export default function MultiSelectDropdown({
               </TouchableOpacity>
             </View>
 
+            {isMaxReached && (
+              <View style={styles.warningContainer}>
+                <Text style={styles.warningText}>
+                  Maximum {maxSelections} selections allowed. Remove one to add another.
+                </Text>
+              </View>
+            )}
+
             <ScrollView style={styles.optionsList}>
-              {options.map((option) => (
-                <TouchableOpacity
-                  key={option.value}
-                  style={styles.optionItem}
-                  onPress={() => toggleOption(option.value)}
-                  activeOpacity={0.7}
-                >
-                  <Checkbox
-                    status={
-                      selectedValues.includes(option.value)
-                        ? 'checked'
-                        : 'unchecked'
-                    }
+              {options.map((option) => {
+                const isSelected = selectedValues.includes(option.value);
+                const isDisabled = !isSelected && isMaxReached;
+
+                return (
+                  <TouchableOpacity
+                    key={option.value}
+                    style={[
+                      styles.optionItem,
+                      isDisabled && styles.optionItemDisabled,
+                    ]}
                     onPress={() => toggleOption(option.value)}
-                    color="#FACC15"
-                  />
-                  <Text style={styles.optionLabel}>{option.label}</Text>
-                </TouchableOpacity>
-              ))}
+                    activeOpacity={isDisabled ? 1 : 0.7}
+                    disabled={isDisabled}
+                  >
+                    <Checkbox
+                      status={isSelected ? 'checked' : 'unchecked'}
+                      onPress={() => toggleOption(option.value)}
+                      color="#FACC15"
+                      disabled={isDisabled}
+                    />
+                    <Text
+                      style={[
+                        styles.optionLabel,
+                        isDisabled && styles.optionLabelDisabled,
+                      ]}
+                    >
+                      {option.label}
+                    </Text>
+                  </TouchableOpacity>
+                );
+              })}
             </ScrollView>
 
             <TouchableOpacity
@@ -145,11 +179,20 @@ const styles = StyleSheet.create({
   container: {
     marginBottom: 16,
   },
+  labelContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
   label: {
     fontSize: 16,
     fontWeight: '600',
     color: '#374151',
-    marginBottom: 8,
+  },
+  maxText: {
+    fontSize: 12,
+    color: '#6B7280',
   },
   dropdownButton: {
     flexDirection: 'row',
@@ -222,6 +265,20 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#111827',
   },
+  warningContainer: {
+    backgroundColor: '#FEF3C7',
+    padding: 12,
+    marginHorizontal: 20,
+    marginTop: 12,
+    borderRadius: 8,
+    borderLeftWidth: 4,
+    borderLeftColor: '#FACC15',
+  },
+  warningText: {
+    color: '#92400E',
+    fontSize: 13,
+    fontWeight: '500',
+  },
   optionsList: {
     maxHeight: 400,
   },
@@ -231,10 +288,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 12,
   },
+  optionItemDisabled: {
+    opacity: 0.4,
+  },
   optionLabel: {
     fontSize: 15,
     color: '#374151',
     marginLeft: 8,
+  },
+  optionLabelDisabled: {
+    color: '#9CA3AF',
   },
   doneButton: {
     backgroundColor: '#FACC15',

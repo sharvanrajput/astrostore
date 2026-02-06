@@ -1,17 +1,20 @@
+import { api } from "@/api/axios";
+import MultiSelectDropdown from "@/components/MultiSelectDropdown";
+import { registerTypes } from "@/store/authStore";
+import { useRouter } from "expo-router";
 import { Link } from "expo-router";
-import React, { useState, useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import {
+  Alert,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  StyleSheet,
   Text,
   TouchableOpacity,
   View,
-  StyleSheet,
 } from "react-native";
 import { Button, Checkbox, TextInput } from "react-native-paper";
-import MultiSelectDropdown from "@/components/MultiSelectDropdown";
-import { registerTypes } from "@/store/authStore";
 
 interface Option {
   value: string;
@@ -84,12 +87,29 @@ const expertiseOptions: Option[] = [
   { value: "vastu", label: "Vastu" },
 ];
 
+const countryCodeOptions: Option[] = [
+  { value: "+91", label: "+91 (India)" },
+  { value: "+1", label: "+1 (USA/Canada)" },
+  { value: "+44", label: "+44 (UK)" },
+  { value: "+61", label: "+61 (Australia)" },
+  { value: "+971", label: "+971 (UAE)" },
+  { value: "+65", label: "+65 (Singapore)" },
+  { value: "+81", label: "+81 (Japan)" },
+  { value: "+86", label: "+86 (China)" },
+];
+
 export default function Register() {
+  const route = useRouter();
   const [fullName, setFullName] = useState("");
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [countryCode, setCountryCode] = useState("+91");
+  const [showCountryCodeModal, setShowCountryCodeModal] = useState(false);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [experience, setExperience] = useState("");
+  const [dailyAvailableHours, setDailyAvailableHours] = useState("");
 
   const [selectedExpertise, setSelectedExpertise] = useState<string[]>([]);
   const [selectedLanguages, setSelectedLanguages] = useState<string[]>([]);
@@ -126,6 +146,24 @@ export default function Register() {
       case "email":
         if (!value.trim()) return "Email is required";
         if (!/\S+@\S+\.\S+/.test(value)) return "Invalid email address";
+        return "";
+
+      case "phone":
+        if (!value.trim()) return "Phone number is required";
+        if (!/^\d{10}$/.test(value.trim()))
+          return "Phone number must be 10 digits";
+        return "";
+
+      case "experience":
+        if (!value.trim()) return "Experience is required";
+        if (isNaN(Number(value)) || Number(value) < 0)
+          return "Experience must be a valid number";
+        return "";
+
+      case "dailyAvailableHours":
+        if (!value.trim()) return "Daily available hours is required";
+        if (isNaN(Number(value)) || Number(value) < 1 || Number(value) > 24)
+          return "Hours must be between 1 and 24";
         return "";
 
       case "password":
@@ -183,12 +221,18 @@ export default function Register() {
       newErrors.fullName = validateField("fullName", fullName);
       newErrors.userName = validateField("userName", userName);
       newErrors.email = validateField("email", email);
+      newErrors.phone = validateField("phone", phone);
       newErrors.password = validateField("password", password);
       newErrors.confirmPassword = validateField(
         "confirmPassword",
         confirmPassword,
       );
     } else if (currentStep === 2) {
+      newErrors.experience = validateField("experience", experience);
+      newErrors.dailyAvailableHours = validateField(
+        "dailyAvailableHours",
+        dailyAvailableHours,
+      );
       newErrors.expertise = validateField("expertise", selectedExpertise);
       newErrors.languages = validateField("languages", selectedLanguages);
       newErrors.categories = validateField("categories", selectedCategories);
@@ -226,22 +270,37 @@ export default function Register() {
     }
 
     const payload: registerTypes = {
-      fullName: fullName.trim(),
-      userName: userName.trim(),
+      name: fullName.trim(),
+      username: userName.trim(),
       email: email.trim(),
+      mobile: phone.trim(),
+      country_code: countryCode,
+      experience: experience.trim(),
+      daily_available_hours: Number(dailyAvailableHours),
       password: password,
-      // password_confirmation: confirmPassword,
       expertise: selectedExpertise,
       languages: selectedLanguages,
-      categories: selectedCategories,
+      category: selectedCategories,
       is_family_astrologer: Number(isFamilyAstrologer),
       family_astrology_details:
-        isFamilyAstrologer === "1" ? familyDetails.trim() : null,
+        isFamilyAstrologer === "1" ? familyDetails.trim() : "",
       address: address.trim(),
       pincode: pincode.trim(),
     };
 
     console.log("Registration Payload:", payload);
+    try {
+      const res = await api.post("/astro/register", payload);
+      Alert.alert("Success", res.data.message || "Registration successful!");
+      route.push("/auth/Login");
+      console.log(res.data.message);
+    } catch (error: any) {
+      Alert.alert(
+        "Error",
+        error?.response?.data?.message || "Registration failed",
+      );
+      console.error("Registration error:", error);
+    }
   };
 
   const progressPercentage = useMemo(() => (step / 3) * 100, [step]);
@@ -332,6 +391,79 @@ export default function Register() {
               <Text style={styles.errorText}>{errors.email}</Text>
             )}
 
+            <View style={styles.phoneContainer}>
+              <TouchableOpacity
+                style={styles.countryCodeButton}
+                onPress={() => setShowCountryCodeModal(true)}
+                activeOpacity={0.7}
+              >
+                <Text style={styles.countryCodeText}>{countryCode}</Text>
+                <TextInput.Icon icon="chevron-down" />
+              </TouchableOpacity>
+
+              <TextInput
+                label="Phone Number *"
+                value={phone}
+                onChangeText={(text) => {
+                  setPhone(text.replace(/[^0-9]/g, ""));
+                  setErrors({ ...errors, phone: "" });
+                }}
+                mode="outlined"
+                keyboardType="phone-pad"
+                maxLength={10}
+                left={<TextInput.Icon icon="phone-outline" />}
+                style={styles.phoneInput}
+                outlineColor="#E5E7EB"
+                activeOutlineColor="#FACC15"
+                error={!!errors.phone}
+              />
+            </View>
+            {errors.phone && (
+              <Text style={styles.errorText}>{errors.phone}</Text>
+            )}
+
+            {showCountryCodeModal && (
+              <View style={styles.countryCodeModal}>
+                <View style={styles.countryCodeModalContent}>
+                  <Text style={styles.countryCodeModalTitle}>
+                    Select Country Code
+                  </Text>
+                  <ScrollView style={styles.countryCodeList}>
+                    {countryCodeOptions.map((option) => (
+                      <TouchableOpacity
+                        key={option.value}
+                        style={[
+                          styles.countryCodeOption,
+                          countryCode === option.value &&
+                            styles.countryCodeOptionSelected,
+                        ]}
+                        onPress={() => {
+                          setCountryCode(option.value);
+                          setShowCountryCodeModal(false);
+                        }}
+                      >
+                        <Text
+                          style={[
+                            styles.countryCodeOptionText,
+                            countryCode === option.value &&
+                              styles.countryCodeOptionTextSelected,
+                          ]}
+                        >
+                          {option.label}
+                        </Text>
+                      </TouchableOpacity>
+                    ))}
+                  </ScrollView>
+                  <TouchableOpacity
+                    style={styles.countryCodeModalClose}
+                    onPress={() => setShowCountryCodeModal(false)}
+                  >
+                    <Text style={styles.countryCodeModalCloseText}>Close</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            )}
+
             <TextInput
               label="Password *"
               value={password}
@@ -386,6 +518,46 @@ export default function Register() {
 
         {step === 2 && (
           <View>
+            <TextInput
+              label="Years of Experience *"
+              value={experience}
+              onChangeText={(text) => {
+                setExperience(text.replace(/[^0-9]/g, ""));
+                setErrors({ ...errors, experience: "" });
+              }}
+              mode="outlined"
+              keyboardType="numeric"
+              placeholder="e.g., 5"
+              left={<TextInput.Icon icon="briefcase-outline" />}
+              style={styles.input}
+              outlineColor="#E5E7EB"
+              activeOutlineColor="#FACC15"
+              error={!!errors.experience}
+            />
+            {errors.experience && (
+              <Text style={styles.errorText}>{errors.experience}</Text>
+            )}
+
+            <TextInput
+              label="Daily Available Hours *"
+              value={dailyAvailableHours}
+              onChangeText={(text) => {
+                setDailyAvailableHours(text.replace(/[^0-9]/g, ""));
+                setErrors({ ...errors, dailyAvailableHours: "" });
+              }}
+              mode="outlined"
+              keyboardType="numeric"
+              placeholder="e.g., 8"
+              left={<TextInput.Icon icon="clock-outline" />}
+              style={styles.input}
+              outlineColor="#E5E7EB"
+              activeOutlineColor="#FACC15"
+              error={!!errors.dailyAvailableHours}
+            />
+            {errors.dailyAvailableHours && (
+              <Text style={styles.errorText}>{errors.dailyAvailableHours}</Text>
+            )}
+
             <MultiSelectDropdown
               label="Expertise *"
               options={expertiseOptions}
@@ -396,6 +568,7 @@ export default function Register() {
               }}
               placeholder="Select your areas of expertise"
               error={errors.expertise}
+              maxSelections={3}
             />
 
             <MultiSelectDropdown
@@ -408,6 +581,7 @@ export default function Register() {
               }}
               placeholder="Select languages you speak"
               error={errors.languages}
+              maxSelections={3}
             />
 
             <MultiSelectDropdown
@@ -420,6 +594,7 @@ export default function Register() {
               }}
               placeholder="Select consultation categories"
               error={errors.categories}
+              maxSelections={3}
             />
           </View>
         )}
@@ -519,7 +694,7 @@ export default function Register() {
               label="Pincode (Optional)"
               value={pincode}
               onChangeText={(text) => {
-                setPincode(text);
+                setPincode(text.replace(/[^0-9]/g, ""));
                 setErrors({ ...errors, pincode: "" });
               }}
               keyboardType="numeric"
@@ -589,11 +764,9 @@ export default function Register() {
               mode="contained"
               onPress={handleRegister}
               style={styles.submitButton}
-              // disabled={loading}
               buttonColor="#16A34A"
               contentStyle={styles.buttonContent}
             >
-              {/* {loading ? "Loading..." : "Submit"} */}
               Submit
             </Button>
           )}
@@ -657,6 +830,86 @@ const styles = StyleSheet.create({
   },
   input: {
     marginBottom: 4,
+  },
+  phoneContainer: {
+    flexDirection: "row",
+    gap: 12,
+    marginBottom: 4,
+  },
+  countryCodeButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#fff",
+    borderWidth: 1,
+    borderColor: "#E5E7EB",
+    borderRadius: 4,
+    paddingHorizontal: 12,
+    minWidth: 100,
+  },
+  countryCodeText: {
+    fontSize: 15,
+    color: "#374151",
+    fontWeight: "600",
+  },
+  phoneInput: {
+    flex: 1,
+  },
+  countryCodeModal: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 1000,
+  },
+  countryCodeModalContent: {
+    backgroundColor: "#fff",
+    borderRadius: 12,
+    padding: 20,
+    width: "80%",
+    maxHeight: "70%",
+  },
+  countryCodeModalTitle: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#111827",
+    marginBottom: 16,
+  },
+  countryCodeList: {
+    maxHeight: 300,
+  },
+  countryCodeOption: {
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    marginBottom: 8,
+  },
+  countryCodeOptionSelected: {
+    backgroundColor: "#FACC15",
+  },
+  countryCodeOptionText: {
+    fontSize: 15,
+    color: "#374151",
+  },
+  countryCodeOptionTextSelected: {
+    color: "#fff",
+    fontWeight: "600",
+  },
+  countryCodeModalClose: {
+    backgroundColor: "#6B7280",
+    paddingVertical: 12,
+    borderRadius: 8,
+    alignItems: "center",
+    marginTop: 16,
+  },
+  countryCodeModalCloseText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "600",
   },
   errorText: {
     color: "#EF4444",

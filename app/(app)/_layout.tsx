@@ -13,6 +13,7 @@ const TabIcon = ({ name, color }: Props) => (
 );
 
 export default function Layout() {
+ 
   return (
     <Tabs
       screenOptions={{

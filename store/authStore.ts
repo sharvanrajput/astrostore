@@ -1,6 +1,6 @@
-import { create } from "zustand";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { api } from "@/api/axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { create } from "zustand";
 
 interface loginTypes {
     username: string;
@@ -8,14 +8,18 @@ interface loginTypes {
 }
 
 export interface registerTypes {
-    fullName: string;
-    userName: string;
+    name: string;
     email: string;
+    country_code: string;
+    mobile: string;
+    experience: string;
+    username: string;
     password: string;
 
+    daily_available_hours:number
     expertise: string[];
     languages: string[];
-    categories: string[];
+    category: string[];
 
     is_family_astrologer: string | number;
     family_astrology_details: string | null;
